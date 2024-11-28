@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+</head>
+
+<body>
+    <div>
+        <h1>To Do List</h1>
+
+        <form action="/add" method="post">
+            <div>
+                <label>Todo task</label>
+                <input type="text" name="task" placeholder="Enter a Task">
+                <button type="submit">Add a Task</button>
+            </div>
+        </form>
+
+        <hr />
+        <div>
+            {% if errMessage%}
+            <div>
+                {{errMessage%}}
+            </div>
+            {% if message %}
+            <div class="error">
+                {{ message }}
+            </div>
+            {% endif %}
+            {% for todo in todoList %}
+            <div class="task">
+                {{todo.id}}. {{todo.task}}
+                {% if todo.complete %}
+                <p>Task complete</p>
+                <a href="/update/{{todo.id}}">Mark incomplete</a>
+                {% else %}
+                <p>Task incomplete</p>
+                <a href="/update/{{todo.id}}">Mark complete</a>
+                {% endif %}
+                <p>Created on {{todo.date_created}}</p>
+                <div>
+                    <form action="/updateTask/{{todo.id}}" method="post">
+                        <input type="text" name="updatedTask" />
+                        <button type="submit">Update this task</button>
+                    </form>
+                </div>
+                <a href="/delete/{{todo.id}}">Delete task</a>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</body>
+
+</html>
