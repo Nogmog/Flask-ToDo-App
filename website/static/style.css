@@ -19,3 +19,13 @@ body {
 .message {
     color: green
 }
+
+.task {
+    background-color: peachpuff;
+    border-color: grey;
+    border-width: 3px;
+    border-style: solid;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
