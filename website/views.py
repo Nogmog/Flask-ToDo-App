@@ -15,6 +15,10 @@ def home():
 def add():
     try:
         task = request.form.get("task")
+
+        if task == "":
+            raise Exception("Tasks cannot be empty")
+        
         newTodo = Todo(task=task)
 
         db.session.add(newTodo)
