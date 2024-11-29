@@ -1,0 +1,22 @@
+body {
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    margin: 50px;
+}
+
+.error,
+.message {
+    border-width: 5px;
+    border-style: solid;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.error {
+    color: red;
+}
+
+.message {
+    color: green
+}

@@ -9,7 +9,7 @@ def home():
     todoList = Todo.query.all()
     errMessage = request.args.get("err", None)
     message = request.args.get("message", None)
-    return render_template("index.html", todoList=todoList, err=errMessage, message=message)
+    return render_template("index.html", todoList=todoList, error=errMessage, message=message)
 
 @my_view.route("/add", methods=["POST"])
 def add():
@@ -49,7 +49,7 @@ def delete(todoId):
         db.session.delete(todo)
         db.session.commit()
 
-        message = "Task updated successfully"
+        message = "Task removed."
         return redirect(url_for("my_view.home", message=message))
     except:
         message = "Task wasn't deleted. Please try again"
