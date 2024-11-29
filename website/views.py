@@ -15,11 +15,11 @@ def home():
 def add():
     try:
         task = request.form.get("task")
-
-        if task == "":
+        category = request.form.get("category")
+        if task == "" or category == None:
             raise Exception("Tasks cannot be empty")
         
-        newTodo = Todo(task=task)
+        newTodo = Todo(task=task, category=category)
 
         db.session.add(newTodo)
         db.session.commit()
@@ -63,8 +63,11 @@ def delete(todoId):
 def updateTask(todoId):
     try:
         newTask = request.form.get("updatedTask")
-        todo = Todo.query.filter_by(id=todoId).first()
+
+        if newTask == "":
+            raise Exception("Updated tasks cannot be empty")
         
+        todo = Todo.query.filter_by(id=todoId).first()
         todo.task = newTask
 
         db.session.commit()

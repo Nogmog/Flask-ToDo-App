@@ -16,6 +16,12 @@
             <div>
                 <label>Todo task</label>
                 <input type="text" name="task" placeholder="Enter a Task">
+                <select name="category">
+                    <option value="None" selected disabled hidden>Task Category</option>
+                    <option value="priority">Priority</option>
+                    <option value="backlog">Backlog</option>
+                    <option value="home">Home</option>
+                </select>
                 <button type="submit">Add a Task</button>
             </div>
         </form>
@@ -35,20 +41,25 @@
             {% for todo in todoList %}
             <div class="task">
 
-                <p>{{todo.id}}. {{todo.task}}</p>
+                <div>{{todo.id}}. {{todo.task}}</div>
                 {% if todo.complete %}
-                <p>Task complete</p>
-                <a href="/update/{{todo.id}}">Mark incomplete</a>
+                <p>Complete</p>
                 {% else %}
-                <p>Task incomplete</p>
-                <a href="/update/{{todo.id}}">Mark complete</a>
+                <p>Incomplete</p>
                 {% endif %}
-                <p>Created on {{todo.date_created}}</p>
                 <div>
                     <form action="/updateTask/{{todo.id}}" method="post">
-                        <input type="text" name="updatedTask" />
-                        <button type="submit">Update this task</button>
+                        <input type="text" name="updatedTask" placeholder="Update this task" />
+                        <button type="submit">Update</button>
                     </form>
+                </div>
+                <div>
+                    <p>Created on {{todo.date_created}}</p>
+                    {% if todo.complete %}
+                    <a href="/update/{{todo.id}}">Mark incomplete</a>
+                    {% else %}
+                    <a href="/update/{{todo.id}}">Mark complete</a>
+                    {% endif %}
                 </div>
                 <a href="/delete/{{todo.id}}">Delete task</a>
             </div>
