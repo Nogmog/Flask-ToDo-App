@@ -18,14 +18,14 @@
                 <input type="text" name="task" placeholder="Enter a Task">
                 <select name="category">
                     <option value="None" selected disabled hidden>Task Category</option>
-                    <option value="priority">Priority</option>
-                    <option value="backlog">Backlog</option>
-                    <option value="home">Home</option>
+
+                    {% for category in categories %}
+                    <option value="{{category}}">{{category}}</option>
+                    {% endfor %}
                 </select>
                 <button type="submit">Add a Task</button>
             </div>
         </form>
-
         <hr />
         <div>
             {% if message %}
@@ -38,14 +38,23 @@
                 {{ error }}
             </div>
             {% endif %}
+            <!-- <form action="/getTodos">
+                <select name="chosenCategory">
+                    <option value="None" selected>All categories</option>
+                    {% for category in categories %}
+                    <option value="{{category}}">{{category}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Show</button> -->
+            </form>
             {% for todo in todoList %}
             <div class="task">
 
                 <div>{{todo.id}}. {{todo.task}}</div>
                 {% if todo.complete %}
-                <p>Complete</p>
+                <p style="color:green">Complete</p>
                 {% else %}
-                <p>Incomplete</p>
+                <p style="color:red">Incomplete</p>
                 {% endif %}
                 <div>
                     <form action="/updateTask/{{todo.id}}" method="post">
@@ -54,7 +63,7 @@
                     </form>
                 </div>
                 <div>
-                    <p>Created on {{todo.date_created}}</p>
+                    <p>Created on {{todo.date_created.strftime("%d %b")}}</p>
                     {% if todo.complete %}
                     <a href="/update/{{todo.id}}">Mark incomplete</a>
                     {% else %}

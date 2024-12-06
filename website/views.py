@@ -3,13 +3,15 @@ from .models import Todo
 from . import db
 
 my_view = Blueprint("my_view", __name__)
+allCategories = ["Priority", "Backlog", "Home"]
+
 
 @my_view.route("/")
 def home():
     todoList = Todo.query.all()
     errMessage = request.args.get("err", None)
     message = request.args.get("message", None)
-    return render_template("index.html", todoList=todoList, error=errMessage, message=message)
+    return render_template("index.html", todoList=todoList, categories=allCategories, error=errMessage, message=message)
 
 @my_view.route("/add", methods=["POST"])
 def add():
